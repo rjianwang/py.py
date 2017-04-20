@@ -32,10 +32,10 @@ class Dict:
 		"""
 		Init variables
 		----------------------------------------------------------------------------------
-		key:		Application ID get from Youdao Fanyi.
-		keyfrom:	Secret key get from Youdao Fanyi.
+		key:        Application ID get from Youdao Fanyi.
+		keyfrom:    Secret key get from Youdao Fanyi.
 
-		q:			The content to translate.
+		q:          The content to translate.
 		"""
 
 		key = '1698239486'
