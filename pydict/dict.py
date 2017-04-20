@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
  
 """
-	dict
-	An online terminal translator
-	----------------------------------------------------------------------------------
-	
-	Author:		rjianwang
-	Email:		rjianwang@foxmail.com
-	Date:		2017-04-19
-	License:	The MIT License, please visit https://mitlicense.org for more details.
+dict
+An online terminal translator
+----------------------------------------------------------------------------------
+
+Author:		rjianwang
+Email:		rjianwang@foxmail.com
+Date:		2017-04-19
+License:	The MIT License, please visit https://mitlicense.org for more details.
 """
 
 import sys
