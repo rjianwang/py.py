@@ -4,13 +4,12 @@
 """
 	dict
 	An online terminal translator
-	-----------------------------------------------------------------
+	----------------------------------------------------------------------------------
 	
 	Author:		rjianwang
 	Email:		rjianwang@foxmail.com
 	Date:		2017-04-19
-	License:	The MIT License, please visit https://mitlicense.org/
-				for more details.
+	License:	The MIT License, please visit https://mitlicense.org for more details.
 """
 
 import sys
@@ -32,7 +31,7 @@ class Dict:
 	def __init__(self, content, fromLang = 'en', toLang = 'zh'):
 		"""
 		Init variables
-		------------------------------------------------------------------
+		----------------------------------------------------------------------------------
 		key:		Application ID get from Youdao Fanyi.
 		keyfrom:	Secret key get from Youdao Fanyi.
 
