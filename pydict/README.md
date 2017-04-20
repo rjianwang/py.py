@@ -8,6 +8,8 @@ own ones.
 	
 links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 
+Copyright (c) 2017 rjianwang
+
 License: 
 ===
 
