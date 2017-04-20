@@ -23,7 +23,7 @@ class Dict:
 	translation between Chinese and English.
 
 	The 'key' and 'keyfrom' are needed, you could change these to your 
-	own one.
+	own ones.
 	
 	links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 	"""
