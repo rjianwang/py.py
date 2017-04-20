@@ -1,5 +1,5 @@
 pydict
-===
+==
 An online terminal translator.
 This dictionary is implemented with Youdao Fanyi API, which provides
 translation between Chinese and English.
@@ -9,7 +9,7 @@ own ones.
 links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 
 Usage(on ubuntu):
-==
+===
 
 chmod +x dict.py
 
@@ -18,7 +18,7 @@ mv dict.py dict
 sudo mv dict /usr/local/bin
 
 Example:
-==
+===
 
 dict name
 
