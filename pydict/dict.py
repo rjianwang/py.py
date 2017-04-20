@@ -28,7 +28,7 @@ class Dict:
 	links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 	"""
 
-	def __init__(self, content, fromLang = 'en', toLang = 'zh'):
+	def __init__(self, content):
 		"""
 		Init variables
 		----------------------------------------------------------------------------------
