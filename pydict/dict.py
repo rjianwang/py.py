@@ -26,8 +26,7 @@ class Dict:
 	The 'key' and 'keyfrom' are needed, you could change these to your 
 	own one.
 	
-	links:	http://fanyi.youdao.com/openapi
-			http://fanyi.youdao.com
+	links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 	"""
 
 	def __init__(self, content, fromLang = 'en', toLang = 'zh'):
