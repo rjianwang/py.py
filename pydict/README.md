@@ -10,11 +10,6 @@ links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 
 Copyright (c) 2017 rjianwang
 
-License: 
-===
-
-The MIT License, please visit https://mitlicense.org/ for more details.
-
 Usage(on ubuntu):
 ===
 
