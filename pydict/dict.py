@@ -3,7 +3,7 @@
  
 """
 	dict
-	An online terminal dictionary
+	An online terminal translator
 	-----------------------------------------------------------------
 	
 	Author:		rjianwang
@@ -14,84 +14,72 @@
 """
 
 import sys
-import httplib
-import md5
 import urllib
-import random
 
 class Dict:
 	"""
-	An online terminal dictionary.
+	An online terminal translator.
 
-	This dictionary is implemented with Baidu Fanyi API, which provides
-	translation of dozens of languages.
+	This dictionary is implemented with Youdao Fanyi API, which provides
+	translation between Chinese and English.
 
-	The 'appid' and 'secretkey' are needed, you could change these to 
-	your own one.
+	The 'key' and 'keyfrom' are needed, you could change these to your 
+	own one.
 	
-	links:	http://api.fanyi.baidu.com/api/trans/product/index
-			http://fanyi.baidu.com
+	links:	http://fanyi.youdao.com/openapi
+			http://fanyi.youdao.com
 	"""
 
 	def __init__(self, content, fromLang = 'en', toLang = 'zh'):
 		"""
 		Init variables
 		------------------------------------------------------------------
-		appid:		Application ID get from Baidu Fanyi.
-		secretKey:	Secret key get from Baidu Fanyi.
-
-		fromLang:	The source language with a default value 'en'.
-		toLang:		The destinatin language with a default value 'zh'.
+		key:		Application ID get from Youdao Fanyi.
+		keyfrom:	Secret key get from Youdao Fanyi.
 
 		q:			The content to translate.
-
-		salt:		A random number
-		sign:		Signature, create with appid, q, salt, and MD5 code of
-					secretKey.
 		"""
 
-		appid = '20170419000045161'
-		secretKey = 'PuP92ns9ufmGnO2_s8Ef'
+		key = '1698239486'
+		keyfrom = 'ren-youdao-dict'
 
-		self.httpClient = None
-		self.url = '/api/trans/vip/translate'
 		self.q = " ".join(content)
-		self.fromLang = 'en'
-		self.toLang = 'zh'
-		self.salt = random.randint(32768, 65536)
 
-		self.sign = appid + str(self.q) + str(self.salt) + secretKey
-		m1 = md5.new()
-		m1.update(self.sign)
-		self.sign = m1.hexdigest()
-		self.url = self.url + '?appid=' + appid + '&q=' + urllib.quote(self.q) + '&from=' + self.fromLang + '&to=' + self.toLang + '&salt=' + str(self.salt) + '&sign=' + self.sign
+		self.url = 'http://fanyi.youdao.com/openapi.do' + '?keyfrom=' + keyfrom + '&key=' + key + '&type=data&doctype=json&version=1.1' + '&q=' + urllib.quote(self.q)
  
 	def translate(self):
 		"""
 		Connect to the API and get translated content.
 		"""
+		
+		print("-------------------------------------------------")
+		print("有道翻译-fanyi.youdao.com")
+		print("-------------------------------------------------")
 
 		if not self.q.strip():
 			print("WARNING: nothing to translate.\n")
 			exit(1)
 
 		try:
-			httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
-			httpClient.request('GET', self.url)
-		 
-			#response是HTTPResponse对象
-			response = httpClient.getresponse()
+			response = urllib.urlopen(self.url)
 			result = eval(response.read().decode('utf-8'))
 
-			for content in result["trans_result"]:
-				print("%s" % content["src"])
-				print("%s\n" % urllib.unquote(content["dst"]).decode('unicode-escape'))
+			if result['errorCode']:
+				print("Error %d." % result['errorCode'])
+				exit(1)
 
+			print("%s\n" % result['query'])
+			if result.has_key('translation'):
+				for item in result['translation']:
+					print(urllib.unquote(item))
+			if result.has_key('web'):
+				for items in result['web']:
+					item = ", ".join(items['value'])
+					print(urllib.unquote(item))
+
+			print("")
 		except Exception, e:
 			print e
-		finally:
-			if httpClient:
-				httpClient.close()
 
 if __name__ == '__main__':
 	dict = Dict(sys.argv[1:])
