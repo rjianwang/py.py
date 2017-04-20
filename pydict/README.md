@@ -1,7 +1,7 @@
 pydict
 ==
 An online terminal translator.
-This dictionary is implemented with Youdao Fanyi API, which provides
+This translator is implemented with Youdao Fanyi API, which provides
 translation between Chinese and English.
 The 'key' and 'keyfrom' are needed, you could change these to your 
 own ones.
