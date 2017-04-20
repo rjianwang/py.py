@@ -62,10 +62,11 @@ class Dict:
 			response = urllib.urlopen(self.url)
 			result = eval(response.read().decode('utf-8'))
 
-			if result['errorCode']:
-				print("Error %d." % result['errorCode'])
+			# error
+			if self.error(result):
 				exit(1)
 
+			# show translation
 			print("%s\n" % result['query'])
 			if result.has_key('translation'):
 				for item in result['translation']:
@@ -78,6 +79,31 @@ class Dict:
 			print("")
 		except Exception, e:
 			print e
+	
+	def error(self, result):
+		"""
+		Error check.
+
+		0 means there is nothing wrong. The others means translation meet 
+		some troubles.
+		"""
+		if result['errorCode'] == 0:
+			return 0
+		elif result['errorCode'] == 20:
+			print("ERROR: the query content is too long to translate.")
+			return 1
+		elif result['errorCode'] == 30:
+			print("ERROR: cannot translate.")
+			return 1
+		elif result['errorCode'] == 40:
+			print("ERROR: unsuported language.")
+			return 1
+		elif result['errorCode'] == 50:
+			print("ERROR: invalid key.")
+			return 1
+		elif result['errorCode'] == 60:
+			print("ERROR: the result content is empty.")
+			return 1
 
 if __name__ == '__main__':
 	dict = Dict(sys.argv[1:])
