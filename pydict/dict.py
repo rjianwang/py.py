@@ -29,24 +29,20 @@ class Dict:
 	links:	http://fanyi.youdao.com/openapi, http://fanyi.youdao.com
 	"""
 
-	def __init__(self, content):
+	def __init__(self):
 		"""
 		Init variables
 		----------------------------------------------------------------------------------
 		key:        Application ID get from Youdao Fanyi.
 		keyfrom:    Secret key get from Youdao Fanyi.
-
-		q:          The content to translate.
 		"""
 
 		key = '1698239486'
 		keyfrom = 'ren-youdao-dict'
 
-		self.q = " ".join(content)
-
-		self.url = 'http://fanyi.youdao.com/openapi.do' + '?keyfrom=' + keyfrom + '&key=' + key + '&type=data&doctype=json&version=1.1' + '&q=' + urllib.quote(self.q)
+		self.url = 'http://fanyi.youdao.com/openapi.do' + '?keyfrom=' + keyfrom + '&key=' + key + '&type=data&doctype=json&version=1.1'
  
-	def translate(self):
+	def translate(self, content):
 		"""
 		Connect to the API and get translated content.
 		"""
@@ -54,6 +50,9 @@ class Dict:
 		print("-------------------------------------------------")
 		print("有道翻译-fanyi.youdao.com")
 		print("-------------------------------------------------")
+		
+		self.q = " ".join(content)
+		self.url = self.url + '&q=' + urllib.quote(self.q)
 
 		if not self.q.strip():
 			print("WARNING: nothing to translate.\n")
@@ -107,5 +106,5 @@ class Dict:
 			return 1
 
 if __name__ == '__main__':
-	dict = Dict(sys.argv[1:])
-	dict.translate()
+	dict = Dict()
+	dict.translate(sys.argv[1:])
