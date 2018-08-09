@@ -1,28 +1,24 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
  
 """
 dict
 An online terminal translator
 ---------------------------------------------------------------------------------------
-
 Author:		rjianwang
 Email:		rjianwang@foxmail.com
 Date:		2017-04-19
-
 License:	The MIT License, please visit https://mitlicense.org for more details.
 """
 
 import sys
-import urllib
+from urllib.request import urlopen, quote, unquote
 
 class Dict:
 	"""
 	An online terminal translator.
-
 	This translator is implemented with Youdao Fanyi API, which provides
 	translation between Chinese and English.
-
 	The 'key' and 'keyfrom' are needed, you could change these to your 
 	own ones.
 	
@@ -52,14 +48,14 @@ class Dict:
 		print("-------------------------------------------------")
 		
 		self.q = " ".join(content)
-		self.url = self.url + '&q=' + urllib.quote(self.q)
+		self.url = self.url + '&q=' + quote(self.q)
 
 		if not self.q.strip():
 			print("WARNING: nothing to translate.\n")
 			exit(1)
 
 		try:
-			response = urllib.urlopen(self.url)
+			response = urlopen(self.url)
 			result = eval(response.read().decode('utf-8'))
 
 			# error
@@ -68,22 +64,34 @@ class Dict:
 
 			# show translation
 			print("%s\n" % result['query'])
-			if result.has_key('translation'):
-				for item in result['translation']:
-					print(urllib.unquote(item))
-			if result.has_key('web'):
+			if 'basic' in result:
+				if 'phonetic' in result['basic']:
+					print('发音: [' + unquote(result['basic']['phonetic'] + ']'))
+				if 'uk-phonetic' in result['basic']:
+					print('发音(UK): [' + unquote(result['basic']['uk-phonetic'] + ']'))
+				if 'us-phonetic' in result['basic']:
+					print('发音(US): [' + unquote(result['basic']['us-phonetic'] + ']\n'))
+				if 'explains' in result['basic']:
+					print('基本释义：')
+					for item in result['basic']['explains']:
+						print(unquote(item))
+					
+#			if 'translation' in result:
+#				for item in result['translation']:
+#					print(unquote(item))
+			if 'web' in result:
+				print('\n网络释义：')
 				for items in result['web']:
 					item = ", ".join(items['value'])
-					print(urllib.unquote(item))
+					print(unquote(item))
 
 			print("")
-		except Exception, e:
-			print e
+		except Exception as e:
+			print(e)
 	
 	def error(self, result):
 		"""
 		Error check.
-
 		0 means there is nothing wrong. The others means translation meet 
 		some troubles.
 		"""
